@@ -1,19 +1,19 @@
-fn first_num_in_line(input: &str) -> char {
+fn first_num_in_line(input: &str) -> Option<char> {
     for c in input.chars() {
         if c.is_numeric() {
-            return c;
+            return Some(c);
         }
     }
-    return ' ';
+    return None;
 }
 fn reverse(s: &str) -> String {
     s.chars().rev().collect()
 }
 
 fn line_ans(s: &str) -> u128 {
-    let first_numb = first_num_in_line(s);
+    let first_numb = first_num_in_line(s).unwrap();
     let s1 = reverse(s);
-    let second_numb = first_num_in_line(&s1);
+    let second_numb = first_num_in_line(&s1).unwrap();
     let both_nums_in_str = format!("{}{}", first_numb, second_numb);
     let both_nums: u128 = both_nums_in_str.parse().unwrap();
     return both_nums;
@@ -40,7 +40,7 @@ mod tests {
 
     #[test]
     fn testing() {
-        let result = part1(String::from("1abc2
+        let result = part1(&String::from("1abc2
 pqr3stu8vwx
 a1b2c3d4e5f
 treb7uchet"));
